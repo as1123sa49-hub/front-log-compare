@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>front-log-compare</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>LOG 結構比對</h1>
+    <p>上傳兩份 JSON(原始) 比對 jsondata/外層欄位結構</p>
+  </header>
+
+  <main class="container">
+    <section class="compare-card">
+      <div class="compare-grid">
+        <label>舊版 JSON(原始)
+          <input id="cmp-old-file" type="file" accept=".json,application/json">
+        </label>
+        <label>新版 JSON(原始)
+          <input id="cmp-new-file" type="file" accept=".json,application/json">
+        </label>
+      </div>
+      <div class="compare-grid">
+        <label>匹配鍵
+          <select id="cmp-match-mode">
+            <option value="function_name_event" selected>function_name + event（預設）</option>
+            <option value="function_name">function_name</option>
+            <option value="custom">自訂外層欄位</option>
+          </select>
+        </label>
+        <label id="cmp-custom-wrap" class="hidden">自訂匹配欄位（逗號分隔）
+          <input id="cmp-custom-fields" type="text" placeholder="例如 table_id,room_id">
+        </label>
+      </div>
+      <div class="compare-grid">
+        <label class="row-checkbox">
+          <input id="cmp-enable-outer" type="checkbox">
+          啟用外層欄位比對（jsondata path/type 固定必比）
+        </label>
+        <label id="cmp-outer-wrap" class="hidden">外層比對欄位（逗號分隔）
+          <input id="cmp-outer-fields" type="text" placeholder="例如 api,module,balance">
+        </label>
+      </div>
+      <label>忽略欄位（逗號分隔）
+        <input id="cmp-ignore-fields" type="text" value="timestamp,_capturedAt,trace_id,token,host">
+      </label>
+      <label class="row-checkbox">
+        <input id="cmp-only-has-function-name" type="checkbox" checked>
+        僅比對有 function_name 的資料（空值直接跳過）
+      </label>
+      <div class="compare-actions">
+        <button id="cmp-run" class="btn-primary">開始比對</button>
+        <button id="cmp-download" class="btn-muted" disabled>下載差異 CSV</button>
+      </div>
+      <div id="cmp-summary" class="compare-summary"></div>
+      <div id="cmp-tabs" class="compare-tabs hidden">
+        <button class="cmp-tab-btn active" data-tab="all">全部明細</button>
+        <button class="cmp-tab-btn" data-tab="missing-group">整組缺失</button>
+        <button class="cmp-tab-btn" data-tab="jsondata">jsondata 結構差異</button>
+        <button class="cmp-tab-btn" data-tab="outer">外層差異</button>
+      </div>
+      <div id="cmp-tab-panels">
+        <div id="cmp-panel-all" class="compare-details"></div>
+        <div id="cmp-panel-missing-group" class="compare-details hidden"></div>
+        <div id="cmp-panel-jsondata" class="compare-details hidden"></div>
+        <div id="cmp-panel-outer" class="compare-details hidden"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "front-log-compare",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone front log compare tool",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
